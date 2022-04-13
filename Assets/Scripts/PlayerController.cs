@@ -1,0 +1,45 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class PlayerController : MonoBehaviour
+{
+    Rigidbody2D bird;
+
+    int score = 0;
+    public Text scoreUI;
+    public float gravitymodifier;
+
+    void Start()
+    {
+        bird = GetComponent<Rigidbody2D>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            bird.AddForce(new Vector2(0, 1) * 200);
+        }
+
+        if (score > 5)
+        {
+            Physics.gravity *= gravitymodifier;
+
+
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Points"))
+        {
+            score = score + 1;
+            scoreUI.text = score.ToString();
+        }
+        
+    }
+}
+
